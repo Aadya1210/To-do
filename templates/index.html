@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do Website</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>📝 To-Do List</h1>
+
+    <form action="/add" method="post">
+        <input type="text" name="title" placeholder="Task title" required>
+
+        <select name="priority">
+            <option>High</option>
+            <option selected>Medium</option>
+            <option>Low</option>
+        </select>
+
+        <input type="date" name="due_date" required>
+
+        <button>Add Task</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+        <li class="{{ 'done' if task.done else '' }}">
+            <span>
+                {{ task.title }} |
+                {{ task.priority }} |
+                Due: {{ task.due_date }}
+            </span>
+
+            <div>
+                <a href="/done/{{ loop.index0 }}">✔</a>
+                <a href="/delete/{{ loop.index0 }}">🗑</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>
